@@ -1,0 +1,8 @@
+{
+    "name": "color chat",
+    "description": "データを受信する時にサイトの色が変わります。",
+    "repository": "https://github.com/sumup7/color-chat",
+    "logo": "",
+    "keywords": ["node"],
+    "image": "heroku/nodejs"
+  }
