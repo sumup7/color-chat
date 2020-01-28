@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Color Chat</title>
+    <link rel="stylesheet" href="./style.css"type="text/css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <body class="blackRoom">
+        <h1>Color Chat</h1>
+        <p>カラフルなチャットです。<br>メッセージを受信するサイトのカラーが変わります。</p>
+        <form class="inline">
+            <div class="group">
+                <input type="text" name="messageForm" id="messageForm">
+                <button type="submit"id="messagesButton">送信</button>
+            </div>
+　　</footer>
+    <p id="messages"></p>
+    <div class="container">
+        <h5 class="title">Color Chat</h5>
+        <small> Copyright (C) 2020 sumup7 All right reserved.</small>
+    </div>
+    
+<script>
+
+let socket = io();
+let isName = false;
+let name =  prompt('名前を入力してください（ハンドルネーム可）', '');;
+let body = document.body;
+joinUser(name);
+
+socket.on("server_to_client_join", function (data) {
+    $('#messages').append($('<p>').text(data.join));
+});
+
+socket.on('server_to_client_leaving',function(data){
+    $('#messages').append($('<p>').text(data.leaving));
+});
+
+$(function () {
+    $('form').submit(function(e){
+      e.preventDefault(); // prevents page reloading
+      let message = $('#messageForm').val();
+      if (message.length >= 400) {
+                alert("文字数が制限をこえています");
+            } else {
+                socket.emit('chat message', {name:name,message:message});
+                $('#messageForm').val('');
+                return false;
+            }
+    });
+  });
+  socket.on('chat message', function(data){
+      $('#messages').append($('<p>').text(data.name + ':' + '「' + data.message + '」'));
+      changeColor();
+    });
+
+function joinUser(name) {
+    socket.emit("client_to_server_join", { name: name });
+}
+
+function leavingRoom(name){
+    socket.emit("disconnect",{name: name});
+}
+
+function changeColor(){
+    if(body.className === 'blackRoom'){
+        body.className = 'redRoom';
+    }else if(body.className === 'redRoom'){
+        body.className = 'blueRoom';
+    }else if(body.className === 'blueRoom'){
+        body.className = 'blackRoom';
+    }
+    
+}
+</script>
+</body>
+</html>

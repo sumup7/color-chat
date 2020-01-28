@@ -1,0 +1,44 @@
+body{
+    background-color: black;
+}
+.inline{
+    color: whitesmoke;
+    font-weight: bold;
+    text-align: center;
+}
+.blackRoom{
+    background-color: black;
+}
+.redRoom{
+    background-color:red;
+}
+.blueRoom{
+    background-color: blue;
+}
+h1{
+    color: whitesmoke;
+    text-align: center;
+}
+p{
+    color: whitesmoke;
+    font-weight: bold;
+    text-align: center;
+}
+h5{
+    color: whitesmoke;
+    text-align: center;
+}
+.container{
+    color: whitesmoke;
+    text-align: center;
+}
+footer{
+    text-align: center;
+}
+#messages{
+    color: whitesmoke;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    font-family:"ＭＳ 明朝", serif;
+}
