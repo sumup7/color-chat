@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="img/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Color Chat</title>
@@ -12,7 +13,7 @@
 <body>
     <body class="blackRoom">
         <h1>Color Chat</h1>
-        <p>カラフルなチャットです。<br>メッセージを受信するサイトのカラーが変わります。</p>
+        <p>カラフルなチャットです。<br>メッセージを受信するとサイトのカラーが変わります。</p>
         <form class="inline">
             <div class="group">
                 <input type="text" name="messageForm" id="messageForm">
@@ -28,10 +29,12 @@
 <script>
 
 let socket = io();
-let isName = false;
-let name =  prompt('名前を入力してください（ハンドルネーム可）', '');;
+let name =  prompt('名前を入力してください（ハンドルネーム可）', '');
+if (name === null){
+    name = '匿名';
+}
 let body = document.body;
-joinUser(name);
+join(name);
 
 socket.on("server_to_client_join", function (data) {
     $('#messages').append($('<p>').text(data.join));
@@ -59,9 +62,10 @@ $(function () {
       changeColor();
     });
 
-function joinUser(name) {
-    socket.emit("client_to_server_join", { name: name });
-}
+function join(name) {
+        socket.emit("client_to_server_join", { name: name });
+    }  
+
 
 function leavingRoom(name){
     socket.emit("disconnect",{name: name});
@@ -73,9 +77,14 @@ function changeColor(){
     }else if(body.className === 'redRoom'){
         body.className = 'blueRoom';
     }else if(body.className === 'blueRoom'){
+        body.className = 'orangeRoom';
+    }else if(body.className === 'orangeRoom'){
+        body.className = 'rebeccapurpleRoom';
+    }else if(body.className === 'rebeccapurpleRoom'){
+        body.className = 'greenRoom';
+    }else if(body.className === 'greenRoom'){
         body.className = 'blackRoom';
-    }
-    
+    }  
 }
 </script>
 </body>

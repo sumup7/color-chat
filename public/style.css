@@ -15,6 +15,15 @@ body{
 .blueRoom{
     background-color: blue;
 }
+.rebeccapurpleRoom{
+    background-color: rebeccapurple;
+}
+.orangeRoom{
+    background-color: orange;
+}
+.greenRoom{
+    background-color: mediumseagreen;
+}
 h1{
     color: whitesmoke;
     text-align: center;
@@ -42,3 +51,11 @@ footer{
     text-align: center;
     font-family:"ＭＳ 明朝", serif;
 }
+button {
+    padding: 5px 20px;
+    background-color: silver;
+    border-style: none;
+}
+input {
+    height: 20px;
+  }

@@ -24,7 +24,11 @@ io.on('connection', function(socket){
       io.emit('chat message', {name:data.name,message:data.message});
     });
     socket.on('disconnect',function(){
+      if (name == '') {
+        console.log("サイトを離れました。");
+    } else {
       io.emit('server_to_client_leaving',{leaving: name + 'さんが退室しました。'});
+    }
     });
   });
 
