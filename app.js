@@ -29,6 +29,7 @@ io.on('connection', function(socket){
         console.log("サイトを離れました。");
     } else {
       io.emit('server_to_client_leaving',{leaving: name + 'さんが退室しました。'});
+      console.log(name + "さんが退室しました。");
     }
     });
   });
