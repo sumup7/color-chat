@@ -18,6 +18,7 @@ io.on('connection', function(socket){
     var name= '';
     socket.on('client_to_server_join', function (data) {
       name = data.name;
+      console.log(name + "さんが入室しました。");
       io.emit('server_to_client_join', { join: name + "さんが入室しました。" });
   });
     socket.on('chat message', function(data){
