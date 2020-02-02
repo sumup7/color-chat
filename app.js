@@ -31,7 +31,7 @@ io.on('connection', function(socket){
       if (name == '') {
         console.log("サイトを離れました。");
     } else {
-      io.emit('server_to_client_leaving',{leaving: name + 'さんが退室しました。'});
+      io.emit('server_to_client_leaving',{leaving: name + 'さんが退室しました。'+ "チャットルームの参加人数が"+ counter+"人になりました。"});
       console.log(name + "さんが退室しました。");
     }
     });
