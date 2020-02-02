@@ -29,25 +29,31 @@
 <script>
 
 let socket = io();
+//サイトにログインする際名前を入力してもらうフォーム
 let name =  prompt('名前を入力してください（ハンドルネーム可）', '');
+//名前を未入力だと匿名でログイン
 if (name === null){
     name = '匿名';
 }
 let body = document.body;
 join(name);
 
+//入室時のデータを受信して表示
 socket.on("server_to_client_join", function (data) {
     $('#messages').append($('<p>').text(data.join));
 });
 
+//退出時のデータを受信表示
 socket.on('server_to_client_leaving',function(data){
     $('#messages').append($('<p>').text(data.leaving));
 });
 
+//フォームからデータを取得する処理
 $(function () {
     $('form').submit(function(e){
       e.preventDefault(); // prevents page reloading
       let message = $('#messageForm').val();
+      //フォームの文字数制限400文字以内
       if (message.length >= 400) {
                 alert("文字数が制限をこえています");
             } else {
@@ -57,20 +63,23 @@ $(function () {
             }
     });
   });
+  //受け取ったデータを表示する処理
   socket.on('chat message', function(data){
       $('#messages').append($('<p>').text(data.name + ':' + '「' + data.message + '」'));
-      changeColor();
+      changeColor();//メッセージを受け取ったらサイトの背景色が変わる関数の実行
     });
 
+    //入室時の名前をサーバーに送信する処理
 function join(name) {
         socket.emit("client_to_server_join", { name: name });
     }  
 
-
+    //退出時の名前をサーバーに送信する処理
 function leavingRoom(name){
     socket.emit("disconnect",{name: name});
 }
 
+//サイトの背景色が変わる関数
 function changeColor(){
     if(body.className === 'blackRoom'){
         body.className = 'redRoom';
